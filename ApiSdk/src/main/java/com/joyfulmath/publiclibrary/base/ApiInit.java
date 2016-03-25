@@ -3,6 +3,7 @@ package com.joyfulmath.publiclibrary.base;
 import com.joyfulmath.publiclibrary.contant.Keys;
 import com.joyfulmath.publiclibrary.http.HttpResponseHandle;
 import com.joyfulmath.publiclibrary.http.HttpUtil;
+import com.joyfulmath.publiclibrary.json.JsonUtils;
 import com.joyfulmath.publiclibrary.utils.TraceLog;
 
 import java.net.URI;
@@ -14,10 +15,20 @@ import java.util.HashMap;
  */
 public abstract class ApiInit implements Keys {
 
+    public static final String METHOD_GET = "get";
+    public static final String METHOD_POST = "post";
+
+
     protected <T> T get(Class<T> entityClass,String hostUrl,String methodUrl,
                         HashMap<String,String> map,HttpResponseHandle handle)
     {
-        return request("get",entityClass,hostUrl,methodUrl,map,handle);
+        return request(METHOD_GET,entityClass,hostUrl,methodUrl,map,handle);
+    }
+
+    protected <T> T post(Class<T> entityClass,String hostUrl,String methodUrl,
+                         HashMap<String,String> map,HttpResponseHandle handle)
+    {
+        return request(METHOD_POST,entityClass,hostUrl,methodUrl,map,handle);
     }
 
     protected <T> T request(String method, Class<T> entityClass, String hostUrl,
@@ -44,6 +55,8 @@ public abstract class ApiInit implements Keys {
         try{
             String result = requestBase(method, hostUrl, methodUrl, map, handle,
                     isHttpsRequest);
+            TraceLog.i(result);
+            entity = JsonUtils.parseObject(result,entityClass);
         }catch (Exception e)
         {
             TraceLog.e(e.getMessage());
@@ -52,6 +65,7 @@ public abstract class ApiInit implements Keys {
         return entity;
     }
 
+    @SuppressWarnings("unused")
     private String requestBase(String method, String hostUrl, String methodUrl,
                                HashMap<String, String> map, HttpResponseHandle handle,
                                boolean isHttpsRequest) {
@@ -60,9 +74,15 @@ public abstract class ApiInit implements Keys {
         try{
             HashMap<String,String> header = ApiUtil.getCommonHeader();
             methodUrl = hostUrl+methodUrl;
-            if("get".equals(method))
+            TraceLog.i(methodUrl);
+            TraceLog.i(map.toString());
+            if(METHOD_GET.equals(method))
             {
                 result = HttpUtil.getMethod(methodUrl,header,map,handle);
+            }
+            else if(METHOD_POST.equals(method))
+            {
+                result = HttpUtil.postMethod(methodUrl,header,map,null,handle);
             }
         }catch (Exception e)
         {
