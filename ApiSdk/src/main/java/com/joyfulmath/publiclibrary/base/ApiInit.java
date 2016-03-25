@@ -55,7 +55,7 @@ public abstract class ApiInit implements Keys {
         try{
             String result = requestBase(method, hostUrl, methodUrl, map, handle,
                     isHttpsRequest);
-            TraceLog.i(result);
+            TraceLog.i("result:"+result+"-->url:"+hostUrl+methodUrl);
             entity = JsonUtils.parseObject(result,entityClass);
         }catch (Exception e)
         {
@@ -74,8 +74,7 @@ public abstract class ApiInit implements Keys {
         try{
             HashMap<String,String> header = ApiUtil.getCommonHeader();
             methodUrl = hostUrl+methodUrl;
-            TraceLog.i(methodUrl);
-            TraceLog.i(map.toString());
+            TraceLog.i("request:"+methodUrl+"--->params:"+map.toString());
             if(METHOD_GET.equals(method))
             {
                 result = HttpUtil.getMethod(methodUrl,header,map,handle);
