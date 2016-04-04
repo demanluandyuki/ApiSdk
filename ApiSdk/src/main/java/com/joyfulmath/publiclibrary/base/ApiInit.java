@@ -4,7 +4,7 @@ import com.joyfulmath.publiclibrary.contant.Keys;
 import com.joyfulmath.publiclibrary.http.HttpResponseHandle;
 import com.joyfulmath.publiclibrary.http.HttpUtil;
 import com.joyfulmath.publiclibrary.json.JsonUtils;
-import com.joyfulmath.publiclibrary.utils.TraceLog;
+import com.joyfulmath.publicutils.utils.TraceLog;
 
 import java.net.URI;
 import java.util.HashMap;

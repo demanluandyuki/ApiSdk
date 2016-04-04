@@ -1,10 +1,12 @@
-package com.joyfulmath.publiclibrary.utils;
+package com.joyfulmath.publicutils.utils;
 
 import android.util.Log;
 
 import java.util.Locale;
 
 public class TraceLog {
+
+	private static boolean bFlag = false;
 
 	private static class LogLine {
 		private String tag;
@@ -14,6 +16,11 @@ public class TraceLog {
 			this.tag = tag;
 			this.text = text;
 		}
+	}
+
+	public static void setFlag(boolean flag)
+	{
+		bFlag = flag;
 	}
 
 	private static LogLine concatLogLine(String extraMessage) {
@@ -27,51 +34,91 @@ public class TraceLog {
 	}
 
 	public static void v(String msg) {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine(msg);
 		Log.v(line.tag, line.text);
 	}
 
 	public static void v() {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine("");
 		Log.v(line.tag, line.text);
 	}
 	
 	public static void v(String format, Object... args) {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine(String.format(format, args));
 		Log.v(line.tag, line.text);
 	}
 
 	public static void d(String msg) {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine(msg);
 		Log.d(line.tag, line.text);
 	}
 
 	public static void d() {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine("");
 		Log.d(line.tag, line.text);
 	}
 	
 	public static void d(String format, Object... args) {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine(String.format(format, args));
 		Log.d(line.tag, line.text);
 	}
 
 	public static void i(String msg) {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine(msg);
 		Log.i(line.tag, line.text);
 	}
 
 	public static void i() {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine("");
 		Log.i(line.tag, line.text);
 	}
 	
 	public static void i(String format, Object... args) {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine(String.format(format, args));
 		Log.i(line.tag, line.text);
 	}
 
 	public static void w(String msg) {
+		if(!bFlag)
+		{
+			return;
+		}
 		LogLine line = concatLogLine(msg);
 		Log.w(line.tag, line.text);
 	}

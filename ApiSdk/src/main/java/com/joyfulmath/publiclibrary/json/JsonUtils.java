@@ -1,7 +1,7 @@
 package com.joyfulmath.publiclibrary.json;
 
 import com.alibaba.fastjson.JSON;
-import com.joyfulmath.publiclibrary.utils.TraceLog;
+import com.joyfulmath.publicutils.utils.TraceLog;
 
 /**
  * @author deman.lu
@@ -17,7 +17,7 @@ public class JsonUtils {
             ret = JSON.parseObject(jsonStr,entityClass);
         }catch (Exception e)
         {
-            TraceLog.e("parseObject-something Exception with:"+e.toString());
+            TraceLog.e("parseObject-something Exception with:" + e.toString());
         }
 
         return ret;
