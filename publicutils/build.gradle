@@ -11,10 +11,10 @@ android {
     }
     buildTypes {
         debug{
-            buildConfigField "String", "BUILD_ENV", "\"qa\""
+            buildConfigField "boolean", "LOG_CONFIG", "true"
         }
         release {
-            buildConfigField "String", "BUILD_ENV", "\"release\""
+            buildConfigField "boolean", "LOG_CONFIG", "false"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

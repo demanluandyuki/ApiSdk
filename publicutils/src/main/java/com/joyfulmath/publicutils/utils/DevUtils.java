@@ -14,10 +14,18 @@ import com.joyfulmath.publicutils.BuildConfig;
  */
 public class DevUtils {
 
-    public static final String BUILD_ENV = BuildConfig.BUILD_ENV;
-    private String mVersionName = null;
-    private int mVersionCode = -1;
-    private boolean bDebug = false;/*debug is using for debug & release*/
+    private static final String mVersionName = BuildConfig.VERSION_NAME;
+    private static final int mVersionCode = BuildConfig.VERSION_CODE;
+    private static final boolean bDebug = BuildConfig.DEBUG;
+    private static boolean LOG_CONFIG = BuildConfig.LOG_CONFIG;
+
+    public static int getVersionCode() {
+        return mVersionCode;
+    }
+
+    public static String getVersionName() {
+        return mVersionName;
+    }
 
     /**
      *
@@ -27,29 +35,15 @@ public class DevUtils {
         return bDebug;
     }
 
-    public void setbDebug(boolean bDebug) {
-        this.bDebug = bDebug;
-        if(bDebug)
-        {
-            setLogFlag(true);
-        }
-    }
-
     public void setLogFlag(boolean bLogOn) {
-        TraceLog.setFlag(bLogOn);
+        LOG_CONFIG = bLogOn;
+        TraceLog.setFlag(LOG_CONFIG);
     }
 
-    public void init(Context context)
+    public void init()
     {
-        try {
-            String pkName = context.getPackageName();
-            mVersionName = context.getPackageManager().getPackageInfo(
-                    pkName, 0).versionName;
-            mVersionCode = context.getPackageManager()
-                    .getPackageInfo(pkName, 0).versionCode;
-        } catch (Exception e) {
-            TraceLog.e(e.getMessage());
-        }
+        TraceLog.setFlag(LOG_CONFIG);
     }
+
 
 }
