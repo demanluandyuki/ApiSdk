@@ -31,16 +31,16 @@ public class DevUtils {
      *
      * @return
      */
-    public boolean isDebug() {
+    public static boolean isDebug() {
         return bDebug;
     }
 
-    public void setLogFlag(boolean bLogOn) {
+    public static void setLogFlag(boolean bLogOn) {
         LOG_CONFIG = bLogOn;
         TraceLog.setFlag(LOG_CONFIG);
     }
 
-    public void init()
+    public static void init()
     {
         TraceLog.setFlag(LOG_CONFIG);
     }
